@@ -1,6 +1,6 @@
 package de.mschneid.database.demo.jdbc;
 
-import de.mschneid.database.demo.entitiy.Person;
+import de.mschneid.database.demo.entitiy.PersonJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,16 +18,16 @@ public class PersonJdbcDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Person> findAll() {
+    public List<PersonJdbc> findAll() {
         return jdbcTemplate.query("select * from person",
                 new PersonRowMapper());
     }
 
-    public Person findById(int id) {
+    public PersonJdbc findById(int id) {
         return jdbcTemplate.queryForObject(
                 "select * from person where id =?",
                 new Object[]{id},
-                new BeanPropertyRowMapper<>(Person.class));
+                new BeanPropertyRowMapper<>(PersonJdbc.class));
     }
 
     public int deleteById(int id) {
@@ -36,7 +36,7 @@ public class PersonJdbcDao {
                 new Object[]{id});
     }
 
-    public int insert(Person person) {
+    public int insert(PersonJdbc person) {
         return jdbcTemplate.update(
                 "insert into person (id, name, location, birth_date) " +
                         "values(?,?,?,?)",
@@ -46,7 +46,7 @@ public class PersonJdbcDao {
                         new Timestamp(person.getBirthDate().getTime())});
     }
 
-    public int update(Person person) {
+    public int update(PersonJdbc person) {
         return jdbcTemplate.update(
                 "update person set name = ?, location = ?, birth_date = ? " +
                         "where id = ?",
@@ -57,11 +57,11 @@ public class PersonJdbcDao {
                         person.getId()});
     }
 
-    class PersonRowMapper implements RowMapper<Person> {
+    class PersonRowMapper implements RowMapper<PersonJdbc> {
 
         @Override
-        public Person mapRow(ResultSet resultSet, int i) throws SQLException {
-            Person person = new Person();
+        public PersonJdbc mapRow(ResultSet resultSet, int i) throws SQLException {
+            PersonJdbc person = new PersonJdbc();
 
             person.setId(resultSet.getInt("id"));
             person.setName(resultSet.getString("name"));
