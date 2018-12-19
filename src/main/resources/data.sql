@@ -7,12 +7,12 @@
   primary key (id)
 );*/
 
-insert into course (id, name)
-values (1001, 'JPA in 50 steps');
-insert into course (id, name)
-values (1002, 'Spring in 100 steps');
-insert into course (id, name)
-values (1003, 'Spring  Boot in 80 steps');
+insert into course (id, name, updated_date, created_date)
+values (1001, 'JPA in 50 steps', sysdate(), sysdate());
+insert into course (id, name, updated_date, created_date)
+values (1002, 'Spring in 100 steps', sysdate(), sysdate());
+insert into course (id, name, updated_date, created_date)
+values (1003, 'Spring  Boot in 80 steps', sysdate(), sysdate());
 
 
 insert into person

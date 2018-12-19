@@ -33,12 +33,14 @@ public class JpaDemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Course course = courseRepository.findById(1001L);
-		logger.info("Course with id 1000 -> {}", course);
+		courseRepository.playWithCreateAndUpdateTimestamp();
+
+		//Course course = courseRepository.findById(1001L);
+		//logger.info("Course with id 1000 -> {}", course);
 
 		//courseRepository.saveCourse(Course.builder().name("Microservices in 100 Steps").build());
 
-		courseRepository.playWithEntityManager();
+		//courseRepository.playWithEntityManager();
 
 
 

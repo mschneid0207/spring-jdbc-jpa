@@ -47,10 +47,17 @@ public class CourseRepository {
         course1.setName("Webservices in 100 steps - Updated");
         // entity manager updates that automatically
 
-        em.refresh(course1);
+        //em.refresh(course1);
 
         em.flush();
+    }
 
+    public void playWithCreateAndUpdateTimestamp() {
+        Course course1 = Course.builder().name("React in 100 steps").build();
+        em.persist(course1);
+
+        Course course2 = findById(1002L);
+        course2.setName("JPA in 40 steps");
 
     }
 
