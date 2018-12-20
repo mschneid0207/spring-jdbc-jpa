@@ -6,6 +6,7 @@ import de.mschneid.database.demo.entitiy.PersonJdbc;
 import de.mschneid.database.demo.jdbc.PersonJdbcDao;
 import de.mschneid.database.demo.jpa.PersonJpaRepository;
 import de.mschneid.database.demo.repository.CourseRepository;
+import de.mschneid.database.demo.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class JpaDemoApplication implements CommandLineRunner {
 	private CourseRepository courseRepository;
 
 	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
 	PersonJpaRepository jpaRepository;
 
 	public static void main(String[] args) {
@@ -33,7 +37,9 @@ public class JpaDemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		courseRepository.playWithCreateAndUpdateTimestamp();
+		studentRepository.saveStudentWithPassport();
+
+		//courseRepository.playWithCreateAndUpdateTimestamp();
 
 		//Course course = courseRepository.findById(1001L);
 		//logger.info("Course with id 1000 -> {}", course);
