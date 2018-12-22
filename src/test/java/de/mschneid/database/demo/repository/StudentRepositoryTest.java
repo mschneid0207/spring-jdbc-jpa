@@ -39,6 +39,16 @@ public class StudentRepositoryTest {
         logger.info("student -> {}", student);
         logger.info("passport -> {}", student.getPassport());
     }
+
+    @Test
+    @Transactional
+    public void retrievePassportAndAssociatedStudent() {
+        Passport passport = em.find(Passport.class, 4001L);
+
+        logger.info("passport -> {}", passport);
+        logger.info("student -> {}", passport.getStudent());
+    }
+
     @Test
     public void someTest() {
        studentRepository.someDummyOperationsToUnderstandPersistenceContext();

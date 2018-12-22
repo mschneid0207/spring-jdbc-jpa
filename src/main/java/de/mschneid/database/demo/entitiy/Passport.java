@@ -1,16 +1,11 @@
 package de.mschneid.database.demo.entitiy;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -22,4 +17,12 @@ public class Passport {
     private Long id;
     @Column(nullable = false)
     private String number;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "passport")
+    private Student student;
+
+    @Override
+    public String toString() {
+        return String.format("Passport(Id=%d, name=%s)", id, number);
+    }
 }
