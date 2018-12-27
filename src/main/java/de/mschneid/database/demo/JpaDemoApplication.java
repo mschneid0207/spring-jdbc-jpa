@@ -4,6 +4,7 @@ import de.mschneid.database.demo.entitiy.*;
 import de.mschneid.database.demo.jdbc.PersonJdbcDao;
 import de.mschneid.database.demo.jpa.PersonJpaRepository;
 import de.mschneid.database.demo.repository.CourseRepository;
+import de.mschneid.database.demo.repository.EmployeeRepository;
 import de.mschneid.database.demo.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.servlet.http.Part;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -29,6 +32,9 @@ public class JpaDemoApplication implements CommandLineRunner {
 	private StudentRepository studentRepository;
 
 	@Autowired
+	private EmployeeRepository employeeRepository;
+
+	@Autowired
 	PersonJpaRepository jpaRepository;
 
 	public static void main(String[] args) {
@@ -44,7 +50,7 @@ public class JpaDemoApplication implements CommandLineRunner {
 		Student student = Student.builder().name("John").courses(new ArrayList<>()).build();
 		Course course = Course.builder().name("React in 200 Steps").students(new ArrayList<>()).build();
 
-		studentRepository.insertStudentAndCourse(student, course);
+		//studentRepository.insertStudentAndCourse(student, course);
 
 		//courseRepository.addReviewsForCourse(1003L, reviews);
 
@@ -63,6 +69,7 @@ public class JpaDemoApplication implements CommandLineRunner {
 
 
 
+
 		/*logger.info("User id 1001 -> {}", jpaRepository.findById(1001));
 
 		logger.info("All users -> {}", jpaRepository.findAll());
@@ -74,6 +81,15 @@ public class JpaDemoApplication implements CommandLineRunner {
 				new Person(1001, "Laura", "Inzell", new Date())
 		));
 		jpaRepository.delete(1002);*/
+
+		employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("100000")));
+		employeeRepository.insert(new PartTimeEmployee("Jill", new BigDecimal("50")));
+
+		//logger.info("All employees -> {}", employeeRepository.retrieveAllEmployess()	);
+		logger.info("All employees -> {}", employeeRepository.retrieveAllFullTimeEmployess()	);
+		logger.info("All employees -> {}", employeeRepository.retrieveAllPartTimeEmployess()	);
+
+
 	}
 }
 
