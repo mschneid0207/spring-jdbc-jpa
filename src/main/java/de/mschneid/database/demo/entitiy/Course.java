@@ -1,16 +1,16 @@
 package de.mschneid.database.demo.entitiy;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -24,10 +24,31 @@ public class Course {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Setter(AccessLevel.NONE)
+    //@Getter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews = new ArrayList<>();
+
     @UpdateTimestamp
     private LocalDateTime updatedDate;
+
     @CreationTimestamp
     private LocalDateTime createdDate;
+
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
+    public void removeReview(Review review) {
+        this.reviews.remove(review);
+    }
+
+
+
 
 }

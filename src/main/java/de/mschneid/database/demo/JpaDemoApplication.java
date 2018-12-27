@@ -3,6 +3,7 @@ package de.mschneid.database.demo;
 import de.mschneid.database.demo.entitiy.Course;
 import de.mschneid.database.demo.entitiy.Person;
 import de.mschneid.database.demo.entitiy.PersonJdbc;
+import de.mschneid.database.demo.entitiy.Review;
 import de.mschneid.database.demo.jdbc.PersonJdbcDao;
 import de.mschneid.database.demo.jpa.PersonJpaRepository;
 import de.mschneid.database.demo.repository.CourseRepository;
@@ -14,7 +15,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class JpaDemoApplication implements CommandLineRunner {
@@ -36,8 +40,14 @@ public class JpaDemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		Review review1 = Review.builder().rating("5").description("Great").build();
+		Review review2 = Review.builder().rating("5").description("Perfect").build();
+		List<Review> reviews = Arrays.asList(review1, review2);
 
-		studentRepository.saveStudentWithPassport();
+		//courseRepository.addReviewsForCourse(1003L, reviews);
+
+
+		//studentRepository.saveStudentWithPassport();
 
 		//courseRepository.playWithCreateAndUpdateTimestamp();
 
