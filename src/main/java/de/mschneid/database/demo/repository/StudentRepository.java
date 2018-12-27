@@ -1,5 +1,6 @@
 package de.mschneid.database.demo.repository;
 
+import de.mschneid.database.demo.entitiy.Course;
 import de.mschneid.database.demo.entitiy.Passport;
 import de.mschneid.database.demo.entitiy.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 
 @Repository
 @Transactional
@@ -49,6 +51,18 @@ public class StudentRepository {
         passport.setNumber("E98876");
         // Database operation 4  - update student
         student.setName("Markus - Updated");
+    }
+
+    public void insertStudentAndCourse(Student student, Course course) {
+        em.persist(student);
+        em.persist(course);
+
+        student.addCourse(course);
+        course.addStudent(student);
+        em.persist(student);
+
+
+
     }
 
 

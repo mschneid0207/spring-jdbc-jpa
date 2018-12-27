@@ -29,9 +29,12 @@ public class Course {
     private String name;
 
     @Setter(AccessLevel.NONE)
-    //@Getter(AccessLevel.NONE)
     @OneToMany(mappedBy = "course")
     private List<Review> reviews = new ArrayList<>();
+
+    @Setter(AccessLevel.NONE)
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students = new ArrayList<>();
 
     @UpdateTimestamp
     private LocalDateTime updatedDate;
@@ -46,6 +49,15 @@ public class Course {
 
     public void removeReview(Review review) {
         this.reviews.remove(review);
+    }
+
+    public void addStudent(Student student) {
+        this.students.add(student);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Course(Id=%d, name=%s)", id, name);
     }
 
 

@@ -1,9 +1,6 @@
 package de.mschneid.database.demo;
 
-import de.mschneid.database.demo.entitiy.Course;
-import de.mschneid.database.demo.entitiy.Person;
-import de.mschneid.database.demo.entitiy.PersonJdbc;
-import de.mschneid.database.demo.entitiy.Review;
+import de.mschneid.database.demo.entitiy.*;
 import de.mschneid.database.demo.jdbc.PersonJdbcDao;
 import de.mschneid.database.demo.jpa.PersonJpaRepository;
 import de.mschneid.database.demo.repository.CourseRepository;
@@ -43,6 +40,11 @@ public class JpaDemoApplication implements CommandLineRunner {
 		Review review1 = Review.builder().rating("5").description("Great").build();
 		Review review2 = Review.builder().rating("5").description("Perfect").build();
 		List<Review> reviews = Arrays.asList(review1, review2);
+
+		Student student = Student.builder().name("John").courses(new ArrayList<>()).build();
+		Course course = Course.builder().name("React in 200 Steps").students(new ArrayList<>()).build();
+
+		studentRepository.insertStudentAndCourse(student, course);
 
 		//courseRepository.addReviewsForCourse(1003L, reviews);
 
