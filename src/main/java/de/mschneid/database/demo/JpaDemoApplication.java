@@ -82,12 +82,12 @@ public class JpaDemoApplication implements CommandLineRunner {
 		));
 		jpaRepository.delete(1002);*/
 
-		employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("100000")));
+		/*/*employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("100000")));
 		employeeRepository.insert(new PartTimeEmployee("Jill", new BigDecimal("50")));
 
 		//logger.info("All employees -> {}", employeeRepository.retrieveAllEmployess()	);
 		logger.info("All employees -> {}", employeeRepository.retrieveAllFullTimeEmployess()	);
-		logger.info("All employees -> {}", employeeRepository.retrieveAllPartTimeEmployess()	);
+		logger.info("All employees -> {}", employeeRepository.retrieveAllPartTimeEmployess()	);*/
 
 
 	}

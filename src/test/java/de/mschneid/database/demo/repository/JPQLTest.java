@@ -2,6 +2,7 @@ package de.mschneid.database.demo.repository;
 
 import de.mschneid.database.demo.JpaDemoApplication;
 import de.mschneid.database.demo.entitiy.Course;
+import de.mschneid.database.demo.entitiy.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -69,5 +70,63 @@ public class JPQLTest {
         TypedQuery<Course> query = em.createNamedQuery("query_get_all_100", Course.class);
         List<Course> resultList = query.getResultList();
         logger.info("Results jpql where: {} ", resultList);
+    }
+
+    @Test
+    public void jpql_courses_without_students() {
+        TypedQuery<Course> query = em.createQuery("Select c from Course c where c.students is empty", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList);
+    }
+
+    @Test
+    public void jpql_courses_with_atLeast_2_students() {
+        TypedQuery<Course> query = em.createQuery("Select c from Course c where size(c.students) >= 2", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList);
+    }
+
+    @Test
+    public void jpql_courses_with_orderedBy_students() {
+        TypedQuery<Course> query = em.createQuery("Select c from Course c order by size(c.students) desc", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList);
+    }
+
+    @Test
+    public void jpql_students_with_passport_in_a_certain_pattern() {
+        TypedQuery<Student> query = em.createQuery("Select s from Student s where s.passport.number like '%123%'", Student.class);
+        List<Student> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList);
+    }
+
+    @Test
+    public void join() {
+        Query query = em.createQuery("Select c, s from Course c join c.students s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList.size());
+        for (Object[] result: resultList) {
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
+    }
+
+    @Test
+    public void left_join() {
+        Query query = em.createQuery("Select c, s from Course c left join c.students s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList.size());
+        for (Object[] result: resultList) {
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
+    }
+
+    @Test
+    public void cross_join() {
+        Query query = em.createQuery("Select c, s from Course c, Student s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results -> {} ", resultList.size());
+        for (Object[] result: resultList) {
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
     }
 }
