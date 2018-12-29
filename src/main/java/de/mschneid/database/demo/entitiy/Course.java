@@ -1,5 +1,6 @@
 package de.mschneid.database.demo.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +20,7 @@ import java.util.List;
         @NamedQuery(name = "query_get_all_courses", query = "select c from Course c"),
         @NamedQuery(name = "query_get_all_100", query = "Select c from Course c where name like '%100%'")
 })
+@Cacheable
 public class Course {
 
     @Id
@@ -34,6 +36,7 @@ public class Course {
 
     @Setter(AccessLevel.NONE)
     @ManyToMany(mappedBy = "courses")
+    @JsonIgnore
     private List<Student> students = new ArrayList<>();
 
     @UpdateTimestamp

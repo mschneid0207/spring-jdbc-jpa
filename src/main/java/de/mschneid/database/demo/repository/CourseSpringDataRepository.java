@@ -3,14 +3,16 @@ package de.mschneid.database.demo.repository;
 import de.mschneid.database.demo.entitiy.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
+@RepositoryRestResource(path = "courses")
 public interface CourseSpringDataRepository extends JpaRepository<Course, Long> {
 
     List<Course> findByName(String name);
     List<Course> findByNameAndId(String name, Long id);
-    List<Course> findByNameOrOrderById(String name);
+    List<Course> findByNameOrderById(String name);
     List<Course> deleteByName(String name);
     List<Course> countByName(String name);
 
